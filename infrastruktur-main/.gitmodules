@@ -1,0 +1,12 @@
+[submodule "bildverarbeitung"]
+	path = bildverarbeitung
+	url = https://git.ai.fh-erfurt.de/ws26-realisierung-intelligenter-systeme/bildverarbeitung.git
+[submodule "spielalgorithmus"]
+	path = spielalgorithmus
+	url = https://git.ai.fh-erfurt.de/ws26-realisierung-intelligenter-systeme/spielalgorithmus.git
+[submodule "servosteuerung"]
+	path = servosteuerung
+	url = https://git.ai.fh-erfurt.de/ws26-realisierung-intelligenter-systeme/servosteuerung.git
+[submodule "spielsteuerung"]
+	path = spielsteuerung
+	url = https://git.ai.fh-erfurt.de/ws26-realisierung-intelligenter-systeme/spielsteuerung.git

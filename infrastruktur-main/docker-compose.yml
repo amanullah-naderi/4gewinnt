@@ -1,0 +1,64 @@
+# run using
+version: "3.8"
+
+services:
+  bildverarbeitung:
+    build:
+      context: ./bildverarbeitung
+      dockerfile: ./Dockerfile
+    image: "ws22-robotik-4-gewinnt/bildverarbeitung:local"
+    devices:
+      - "/dev/video0:/dev/video1"
+    ports:
+      - "8090:8090"
+    restart: always
+
+  gamelogic:
+    build:
+      context: ./spielalgorithmus
+      dockerfile: ./Dockerfile
+    image: "ws22-robotik-4-gewinnt/spielalgorithmus:local"
+    ports:
+      - "8093:8093"
+    restart: always
+
+  pigpio-deamon:
+    image: zinen2/alpine-pigpiod
+    privileged: true
+    ports:
+      - "8888:8888"
+
+  servosteuerung:
+    build:
+      context: ./servosteuerung
+      dockerfile: ./Dockerfile
+    image: "ws22-robotik-4-gewinnt/servosteuerung:local"
+    privileged: true
+    #environment:
+      #- PIGPIO_ADDR=localhost
+      #- PIGPIO_PORT=8888
+    devices:
+      - "/dev/gpiomem:/dev/gpiomem"
+    ports:
+      #- "8888:8888"
+      - "8096:8096"
+    restart: always
+    depends_on:
+      - pigpio-deamon
+
+  spielsteuerung:
+    build:
+      context: ./spielsteuerung
+      dockerfile: ./Dockerfile
+    image: "ws22-robotik-4-gewinnt/spielsteuerung:local"
+    privileged: true
+    #environment:
+      #- PIGPIO_ADDR=localhost
+      #- PIGPIO_PORT=8888
+    devices:
+      - "/dev/gpiomem:/dev/gpiomem"
+    ports:
+      - "8097:8097"
+    restart: always
+    depends_on:
+      - pigpio-deamon
